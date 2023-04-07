@@ -27,7 +27,6 @@ def s(msg,room):
         "type":"normal",
         "data":base64.b64encode(msg.encode()).decode(),
         "room":base64.b64encode(room.encode()).decode(),
-        "userId":"123123123",
         "msgJson":base64.b64encode('[]'.encode()).decode()}
 
     clientSocket.send(json.dumps(res).encode("utf-8"))
