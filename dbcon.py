@@ -4,7 +4,9 @@ import json
 import datetime
 import time
 
-DB_PATH = '/home/dolidoli/.local/share/waydroid/data/data/com.kakao.talk/databases/'
+#add linux username
+USER = ''
+DB_PATH = f'/home/{USER}/.local/share/waydroid/data/data/com.kakao.talk/databases/'
 
 class KakaoDB:
     def __init__(self):
