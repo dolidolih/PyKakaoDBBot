@@ -7,6 +7,11 @@ import json
 import base64
 import requests
 
+USER = '' #add linux username
+BOT_NAME = '' #add BOT open profile name
+BOT_ID =  #add BOT userid
+COMMAND_FILE = '' #add command file
+
 class Watcher(object):
     running = True
     refresh_delay_secs = 0.01
@@ -58,7 +63,7 @@ def custom_action(db):
                 user_info = get_user_info(db,chat_id,user_id)
                 room = user_info[0]
                 sender = user_info[1]
-                if room == "my_name":
+                if room == BOT_NAME:
                     room = sender
                 print("posting")
                 post_data = make_post_data(row, dec_msg, room, sender, {description[i]:row[i] for i in range(len(row))})
@@ -66,7 +71,7 @@ def custom_action(db):
                 print("posted")
 
 def is_command(msg):
-    with open('/home/dolidoli/www/commands_db','r') as fo:
+    with open(COMMAND_FILE,'r') as fo:
         commands = json.loads(fo.read())
     if msg.split(' ')[0] in commands:
         return True
@@ -76,8 +81,8 @@ def is_command(msg):
 def get_user_info(db,chat_id,user_id):
     db.cur.execute(f'SELECT name FROM db2.open_link WHERE id = (SELECT link_id FROM chat_rooms WHERE id = ?);',[chat_id])
     room = db.cur.fetchall()[0][0]
-    if user_id == 326419021:
-        sender = "not angry ryan"
+    if user_id == BOT_ID:
+        sender = BOT_NAME
     else:
         sender = db.get_name_of_user_id(user_id)
     return (room, sender)
@@ -96,7 +101,7 @@ def make_post_data(row, dec_msg, room, sender, js):
     return json.dumps(data)
 
 def main(db):
-    watch_file = '/home/dolidoli/.local/share/waydroid/data/data/com.kakao.talk/databases/KakaoTalk.db-wal'
+    watch_file = f'/home/{USER}/.local/share/waydroid/data/data/com.kakao.talk/databases/KakaoTalk.db-wal'
     global last_log_id
     last_log_id = 0
     watcher = Watcher(watch_file,db)

@@ -9,6 +9,10 @@ from Crypto.Util.Padding import pad
 #https://github.com/jiru/kakaodecrypt
 #removed unnecessary codes and added encrypt
 
+#update BOT_USER_ID
+BOT_USER_ID = 
+
+
 class KakaoDecrypt:
   key_cache = {}
 
@@ -109,7 +113,7 @@ class KakaoDecrypt:
     return bytes(dKey)
 
   @staticmethod
-  def decrypt(encType, b64_ciphertext, user_id=321468085):
+  def decrypt(encType, b64_ciphertext, user_id=BOT_USER_ID):
     key = b'\x16\x08\x09\x6f\x02\x17\x2b\x08\x21\x21\x0a\x10\x03\x03\x07\x06'
     iv = b'\x0f\x08\x01\x00\x19\x47\x25\xdc\x15\xf5\x17\xe0\xe1\x15\x0c\x35'
 
@@ -138,7 +142,7 @@ class KakaoDecrypt:
       return plaintext
 
   @staticmethod
-  def encrypt(encType, plaintext, user_id=326419021):
+  def encrypt(encType, plaintext, user_id=BOT_USER_ID):
     key = b'\x16\x08\x09\x6f\x02\x17\x2b\x08\x21\x21\x0a\x10\x03\x03\x07\x06'
     iv = b'\x0f\x08\x01\x00\x19\x47\x25\xdc\x15\xf5\x17\xe0\xe1\x15\x0c\x35'
     salt = KakaoDecrypt.genSalt(user_id, encType)
