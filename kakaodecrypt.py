@@ -6,6 +6,9 @@ import base64
 import argparse
 from Crypto.Util.Padding import pad
 
+#https://github.com/jiru/kakaodecrypt
+#removed unnecessary codes and added encrypt
+
 class KakaoDecrypt:
   key_cache = {}
 
