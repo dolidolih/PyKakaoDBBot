@@ -77,7 +77,11 @@ sudo systemctl enable --now dbobserver
 ### Sequence Diagram
 ```mermaid
 sequenceDiagram
+    box kakaotalk
+    participant Kakaotalk
+    end
     box waydroid
+    participant Notification
     participant BotApp
     participant DB
     end
@@ -88,6 +92,8 @@ sequenceDiagram
     DB->>DBObserver: detect changes
     DBObserver->>Flask: send commands
     Flask->>BotApp:send result via socket
+    BotApp->>Notification:reply
+    Notification->>kakaotalk:reply
 ```
 
 ### End
