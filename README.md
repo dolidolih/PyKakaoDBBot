@@ -2,7 +2,8 @@
 Python Kakaotalk bot using Waydroid & Android notification based bot apps.
 ## 1. Installation
 ### 1.1 Install Wayldroid
-Follow the below instruntion by destribution:
+Follow the official instruntion provided by waydroid:
+
 https://docs.waydro.id/usage/install-on-desktops
 
 ※ Waydroid only runs on wayland environment. Use Weston in x11.
