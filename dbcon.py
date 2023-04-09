@@ -3,10 +3,10 @@ import sqlite3
 import json
 import datetime
 import time
+import os
 
-#add linux username
-USER = ''
-DB_PATH = f'/home/{USER}/.local/share/waydroid/data/data/com.kakao.talk/databases/'
+HOME_PATH = os.getenv('HOME')
+DB_PATH = f'{HOME_PATH}/.local/share/waydroid/data/data/com.kakao.talk/databases/'
 
 class KakaoDB:
     def __init__(self):
