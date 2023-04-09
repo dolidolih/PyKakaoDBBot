@@ -66,8 +66,8 @@ venv/bin/python venv/bin/gunicorn -b 0.0.0.0:5000 -w 9 app:app &
 ```mermaid
 sequenceDiagram
     box waydroid
-    participant DB
     participant BotApp
+    participant DB
     end
     box linux python
     participant DBObserver
