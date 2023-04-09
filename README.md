@@ -93,7 +93,7 @@ sequenceDiagram
     DBObserver->>Flask: send commands
     Flask->>BotApp:send result via socket
     BotApp->>Notification:reply
-    Notification->>kakaotalk:reply
+    Notification->>Kakaotalk:reply
 ```
 
 ### End
