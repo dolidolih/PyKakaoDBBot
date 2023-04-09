@@ -20,4 +20,4 @@ def send_via_socket(is_success,type,data,room,msg_json):
     clientSocket.close()
 
 def send(msg,room):
-    send_via_socket(True,"normal",msg,room,{})
+    send_via_socket(True,"string",msg,room,{})
