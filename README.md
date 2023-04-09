@@ -86,7 +86,7 @@ sequenceDiagram
     participant Flask
     end
     DB->>DBObserver: detect changes
-    DBObserver->>Flask: send new messages with command
+    DBObserver->>Flask: send commands
     Flask->>BotApp:send result via socket
 ```
 
