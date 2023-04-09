@@ -65,9 +65,17 @@ venv/bin/python venv/bin/gunicorn -b 0.0.0.0:5000 -w 9 app:app &
 ### Sequence Diagram
 ```mermaid
 sequenceDiagram
-    DB->>Python: detect changes
-    Python->>Flask: send new messages\nwith command
-    Flask->>Bot\nApp:send result\nvia socket
+    box waydroid
+    participant DB
+    participant BotApp
+    end
+    box linux python
+    participant DBObserver
+    participant Flask
+    end
+    DB->>DBObserver: detect changes
+    DBObserver->>Flask: send new messages with command
+    Flask->>BotApp:send result via socket
 ```
 
 ### End
