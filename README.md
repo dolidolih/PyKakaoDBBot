@@ -1,5 +1,28 @@
 # PyKakaoDBBot
 Python Kakaotalk bot using Waydroid & Android notification based bot apps.
+
+### Sequence Diagram
+```mermaid
+sequenceDiagram
+    box kakaotalk
+    participant Kakaotalk
+    end
+    box waydroid
+    participant Notification
+    participant BotApp
+    participant DB
+    end
+    box linux python
+    participant DBObserver
+    participant Flask
+    end
+    DB->>DBObserver: detect changes
+    DBObserver->>Flask: send commands
+    Flask->>BotApp:send result via socket
+    BotApp->>Notification:send reply data
+    Notification->>Kakaotalk:reply
+```
+
 ## 1. Installation
 ### 1.1 Install Wayldroid
 Follow the official instruntion provided by waydroid:
@@ -71,29 +94,6 @@ sudo systemctl enable --now dbobserver
 @response.call_on_close
     def on_close():
         send_via_socket(True,"string","hello",request_data["room"],"{}")
-```
-
-
-### Sequence Diagram
-```mermaid
-sequenceDiagram
-    box kakaotalk
-    participant Kakaotalk
-    end
-    box waydroid
-    participant Notification
-    participant BotApp
-    participant DB
-    end
-    box linux python
-    participant DBObserver
-    participant Flask
-    end
-    DB->>DBObserver: detect changes
-    DBObserver->>Flask: send commands
-    Flask->>BotApp:send result via socket
-    BotApp->>Notification:reply
-    Notification->>Kakaotalk:reply
 ```
 
 ### End
