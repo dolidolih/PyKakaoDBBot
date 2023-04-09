@@ -92,6 +92,7 @@ sudo systemctl enable --now dbobserver
 ### 2.2 Customizing bot functionalities
 - modify on_close() function inside app.py
 - request_data will include msg, sender, room data you need
+- add your commands in commands_db
 - use send_via_socket or send to send your final result.
 ```python
 @response.call_on_close
