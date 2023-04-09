@@ -34,7 +34,10 @@ https://github.com/jiru/kakaodecrypt/blob/master/guess_user_id.py
 ```shell
 sudo cp response.js $HOME/.local/share/waydroid/data/media/0/msgbot/Bots/YOUR_BOT
 ```
-- Load the script copied in the bot app you installed
+- Load the script copied in the bot app you installed. To access Android environment:
+```shell
+waydroid show-full-ui
+```
 
 ### 1.5 Virtual env and install requirements
 ```shell
