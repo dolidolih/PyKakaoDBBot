@@ -70,7 +70,10 @@ source venv/bin/activate
 pip install pip -- upgrade
 pip install -r requirements.txt
 ```
-
+### 1.6 Change permission of /data
+```shell
+sudo chmod 777 $HOME/.local/share/waydroid/data/data
+```
 ----
 ## 2. How to Use
 ### 2.1 Running python scripts
