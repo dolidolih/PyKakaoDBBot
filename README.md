@@ -63,11 +63,11 @@ venv/bin/python venv/bin/gunicorn -b 0.0.0.0:5000 -w 9 app:app &
 
 
 ### Sequence Diagram
-                    
-```seq
-DB->Python: detect changes
-Python->Flask: send new messages\nwith command
-Flask->Bot\nApp:send result\nvia socket
+```mermaid
+sequenceDiagram
+    DB->>Python: detect changes
+    Python->>Flask: send new messages\nwith command
+    Flask->>Bot\nApp:send result\nvia socket
 ```
 
 ### End
