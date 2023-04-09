@@ -7,12 +7,12 @@ sequenceDiagram
     box kakaotalk
     participant Kakaotalk
     end
-    box waydroid
+    box waydroid(android)
     participant Notification
     participant BotApp
     participant DB
     end
-    box linux python
+    box PyKakaoDBBot(linux)
     participant DBObserver
     participant Flask
     end
