@@ -55,6 +55,8 @@ pip install -r requirements.txt
 venv/bin/python dbobserver.py &
 venv/bin/python venv/bin/gunicorn -b 0.0.0.0:5000 -w 9 app:app &
 ```
+
+※ If you want to make services, put the sample service file to /etc/systemd/system and modify the directory and user
 ### 2.2 Customizing bot functionalities
 - modify on_close() function inside app.py
 - request_data will include msg, sender, room data you need
