@@ -6,11 +6,14 @@ from kakaodecrypt import KakaoDecrypt
 import json
 import base64
 import requests
+import os
 
-USER = '' #add linux username
 BOT_NAME = '' #add BOT open profile name
 BOT_ID =  #add BOT userid
-COMMAND_FILE = '' #add command file
+COMMAND_FILE = 'commands_db' #add command file
+
+HOME_PATH = os.getenv('HOME')
+DB_PATH = f'{HOME_PATH}/.local/share/waydroid/data/data/com.kakao.talk/databases'
 
 class Watcher(object):
     running = True
@@ -101,7 +104,7 @@ def make_post_data(row, dec_msg, room, sender, js):
     return json.dumps(data)
 
 def main(db):
-    watch_file = f'/home/{USER}/.local/share/waydroid/data/data/com.kakao.talk/databases/KakaoTalk.db-wal'
+    watch_file = f'{DB_PATH}/KakaoTalk.db-wal'
     global last_log_id
     last_log_id = 0
     watcher = Watcher(watch_file,db)
