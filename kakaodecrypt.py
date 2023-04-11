@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 from Crypto.Cipher import AES
 import hashlib
 import base64
@@ -10,7 +8,7 @@ from Crypto.Util.Padding import pad
 #removed unnecessary codes and added encrypt
 
 #update BOT_USER_ID
-BOT_USER_ID = 
+BOT_USER_ID = 326419021
 
 
 class KakaoDecrypt:

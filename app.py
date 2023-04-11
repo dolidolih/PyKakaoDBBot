@@ -1,6 +1,6 @@
 # coding: utf8
 from flask import Flask,request,json
-from socketsender import Replier
+from replier import Replier
 import base64
 
 app = Flask(__name__)
@@ -13,7 +13,7 @@ def py_exec_db():
         mimetype='text/plain; charset="utf-8"'
     )
     request_data = json.loads(request.form['data'])
-    replier = Replier(request_data["room"])
+    replier = Replier(request_data)
     @response.call_on_close
     def on_close():
         replier.send_socket(True,"string","hello",request_data["room"],request_data["json"])

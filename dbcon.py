@@ -1,9 +1,9 @@
 from kakaodecrypt import KakaoDecrypt
 import sqlite3
-import json
 import datetime
 import time
 import os
+import subprocess
 
 HOME_PATH = os.getenv('HOME')
 DB_PATH = f'{HOME_PATH}/.local/share/waydroid/data/data/com.kakao.talk/databases'
@@ -12,7 +12,7 @@ class KakaoDB:
     def __init__(self):
         self.con = sqlite3.connect(f"{DB_PATH}/KakaoTalk.db")
         self.cur = self.con.cursor()
-        self.cur.execute(f"ATTACH DATABASE '{DB_PATH}KakaoTalk2.db' AS db2")
+        self.cur.execute(f"ATTACH DATABASE '{DB_PATH}/KakaoTalk2.db' AS db2")
 
     def get_column_info(self,table):
         try:
