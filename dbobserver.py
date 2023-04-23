@@ -7,8 +7,6 @@ import base64
 import os
 from observerhelper import ObserverHelper, get_config
 
-CONFIG_FILE = 'config.json'
-
 class Watcher(object):
     running = True
     refresh_delay_secs = 0.01
@@ -33,7 +31,7 @@ class Watcher(object):
 
 def main():
     db = KakaoDB()
-    config = get_config(CONFIG_FILE)
+    config = get_config('config.json')
     watcher = Watcher(config,db)
     watcher.watch()
 

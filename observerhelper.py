@@ -5,9 +5,9 @@ import requests
 class ObserverHelper:
     def __init__(self,config):
         self.last_log_id = 0
-        self.BOT_NAME = config["bot_name"]
-        self.BOT_ID = config["bot_id"]
         self.COMMAND_FILE = config["command_file"]
+        self.BOT_ID = config["bot_id"]
+        self.BOT_NAME = config["bot_name"]
 
     def is_command(self, msg):
         with open(self.COMMAND_FILE,'r') as fo:
@@ -16,15 +16,6 @@ class ObserverHelper:
             return True
         else:
             return False
-
-    def get_user_info(self, db,chat_id,user_id):
-        db.cur.execute(f'SELECT name FROM db2.open_link WHERE id = (SELECT link_id FROM chat_rooms WHERE id = ?);',[chat_id])
-        room = db.cur.fetchall()[0][0]
-        if user_id == self.BOT_ID:
-            sender = self.BOT_NAME
-        else:
-            sender = db.get_name_of_user_id(user_id)
-        return (room, sender)
 
     def make_post_data(self, dec_msg, room, sender, js):
         data = {"msg" : dec_msg,
@@ -55,7 +46,7 @@ class ObserverHelper:
                 dec_msg = KakaoDecrypt.decrypt(enc,enc_msg,user_id)
                 if self.is_command(dec_msg):
                     chat_id = row[3]
-                    user_info = self.get_user_info(db,chat_id,user_id)
+                    user_info = db.get_user_info(chat_id,user_id)
                     room = user_info[0]
                     sender = user_info[1]
                     if room == self.BOT_NAME:
