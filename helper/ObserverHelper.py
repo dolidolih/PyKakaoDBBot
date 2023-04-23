@@ -1,18 +1,16 @@
 import json
-from kakaodecrypt import KakaoDecrypt
+from helper.KakaoDecrypt import KakaoDecrypt
 import requests
 
 class ObserverHelper:
     def __init__(self,config):
         self.last_log_id = 0
-        self.COMMAND_FILE = config["command_file"]
         self.BOT_ID = config["bot_id"]
         self.BOT_NAME = config["bot_name"]
+        self.commands = config["commands"]
 
     def is_command(self, msg):
-        with open(self.COMMAND_FILE,'r') as fo:
-            commands = json.loads(fo.read())
-        if msg.split(' ')[0] in commands:
+        if msg.split(' ')[0] in self.commands:
             return True
         else:
             return False

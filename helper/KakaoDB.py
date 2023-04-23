@@ -1,5 +1,5 @@
-from kakaodecrypt import KakaoDecrypt
-from observerhelper import get_config
+from helper.KakaoDecrypt import KakaoDecrypt
+from helper.ObserverHelper import get_config
 import sqlite3
 import datetime
 import time
@@ -7,8 +7,6 @@ import os
 import subprocess
 
 config = get_config('config.json')
-
-
 
 class KakaoDB:
     def __init__(self):

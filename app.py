@@ -1,8 +1,8 @@
 # coding: utf8
 from flask import Flask,request,json
-from replier import Replier
 import base64
-from chatbot.response import response
+from chatbot.Response import response
+from helper.Replier import Replier
 
 app = Flask(__name__)
 

@@ -1,20 +1,19 @@
 from socket import *
-from observerhelper import get_config
+from helper.ObserverHelper import get_config
 import json
 import base64
 
-config = get_config('config.json')
-ip = config["bot_ip"]
-port = config["bot_socket_port"]
-
 class Replier:
     def __init__(self, request_data):
+        self.config = get_config('config.json')
+        self.ip = self.config["bot_ip"]
+        self.port = self.config["bot_socket_port"]
         self.json = request_data["json"]
         self.room = request_data["room"]
 
     def send_socket(self, is_success,type,data,room,msg_json):
         clientSocket = socket(AF_INET, SOCK_STREAM)
-        clientSocket.connect((ip,port))
+        clientSocket.connect((self.ip,self.port))
 
         res = { "isSuccess":is_success,
             "type":type,

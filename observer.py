@@ -1,11 +1,11 @@
 import os
 import sys
 import time
-from dbcon import KakaoDB
 import json
 import base64
 import os
-from observerhelper import ObserverHelper, get_config
+from helper.ObserverHelper import ObserverHelper, get_config
+from helper.KakaoDB import KakaoDB
 
 class Watcher(object):
     running = True
