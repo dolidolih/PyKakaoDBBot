@@ -1,12 +1,12 @@
 from kakaodecrypt import KakaoDecrypt
+from observerhelper import get_config
 import sqlite3
 import datetime
 import time
 import os
 import subprocess
 
-HOME_PATH = os.getenv('HOME')
-DB_PATH = f'{HOME_PATH}/.local/share/waydroid/data/data/com.kakao.talk/databases'
+DB_PATH = get_config('config.json')["db_path"]
 
 class KakaoDB:
     def __init__(self):

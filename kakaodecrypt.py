@@ -3,13 +3,14 @@ import hashlib
 import base64
 import argparse
 from Crypto.Util.Padding import pad
+import json
 
 #https://github.com/jiru/kakaodecrypt
 #removed unnecessary codes and added encrypt
 
 #update BOT_USER_ID
-BOT_USER_ID = 326419021
-
+with open('config.json', 'r') as fo:
+  BOT_USER_ID = json.loads(fo.read())["bot_id"]
 
 class KakaoDecrypt:
   key_cache = {}

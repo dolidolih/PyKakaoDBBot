@@ -26,14 +26,10 @@ class ObserverHelper:
             sender = db.get_name_of_user_id(user_id)
         return (room, sender)
 
-    def make_post_data(self, row, dec_msg, room, sender, js):
+    def make_post_data(self, dec_msg, room, sender, js):
         data = {"msg" : dec_msg,
                 "room" : room,
                 "sender" : sender,
-                "log_id" : row[1],
-                "chat_id" : row[3],
-                "hash" : row[4],
-                "user_id" : row[4],
                 "json" : js
                 }
         return json.dumps(data)
@@ -64,9 +60,10 @@ class ObserverHelper:
                     sender = user_info[1]
                     if room == self.BOT_NAME:
                         room = sender
-                    post_data = self.make_post_data(row, dec_msg, room, sender, {description[i]:row[i] for i in range(len(row))})
-                    requests.post("http://127.0.0.1:5000/db",data={"data":post_data})
+                    post_data = self.make_post_data(dec_msg, room, sender, {description[i]:row[i] for i in range(len(row))})
+                    r = requests.post("http://127.0.0.1:5000/db",data={"data":post_data})
                     print('sent')
+                    print(r.status_code)
 
 def get_config(file):
     with open(file,'r') as fo:

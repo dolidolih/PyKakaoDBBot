@@ -1,9 +1,11 @@
 from socket import *
+from observerhelper import get_config
 import json
 import base64
 
-ip = "192.168.240.112"
-port = 3000
+config = get_config('config.json')
+ip = config["bot_ip"]
+port = config["bot_socket_port"]
 
 class Replier:
     def __init__(self, request_data):
