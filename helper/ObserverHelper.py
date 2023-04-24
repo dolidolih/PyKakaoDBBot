@@ -5,12 +5,13 @@ import requests
 class ObserverHelper:
     def __init__(self,config):
         self.last_log_id = 0
-        self.BOT_ID = config["bot_id"]
-        self.BOT_NAME = config["bot_name"]
-        self.commands = config["commands"]
+        self.config = get_config()
+        self.BOT_ID = self.config["bot_id"]
+        self.BOT_NAME = self.config["bot_name"]
 
     def is_command(self, msg):
-        if msg.split(' ')[0] in self.commands:
+        commands = get_config()["commands"]
+        if msg.split(' ')[0] in commands:
             return True
         else:
             return False
@@ -24,7 +25,6 @@ class ObserverHelper:
         return json.dumps(data)
     
     def check_change(self, db):
-        print("changed")
         if self.last_log_id == 0:
             limit = 1
         else:
@@ -50,11 +50,10 @@ class ObserverHelper:
                     if room == self.BOT_NAME:
                         room = sender
                     post_data = self.make_post_data(dec_msg, room, sender, {description[i]:row[i] for i in range(len(row))})
-                    r = requests.post("http://127.0.0.1:5000/db",data={"data":post_data})
+                    requests.post("http://127.0.0.1:5000/db",data={"data":post_data})
                     print('sent')
-                    print(r.status_code)
 
-def get_config(file):
-    with open(file,'r') as fo:
+def get_config():
+    with open('config.json','r') as fo:
         config = json.loads(fo.read())
     return config

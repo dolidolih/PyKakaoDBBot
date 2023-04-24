@@ -31,7 +31,7 @@ class Watcher(object):
 
 def main():
     db = KakaoDB()
-    config = get_config('config.json')
+    config = get_config()
     watcher = Watcher(config,db)
     watcher.watch()
 

@@ -6,11 +6,9 @@ import time
 import os
 import subprocess
 
-config = get_config('config.json')
-
 class KakaoDB:
     def __init__(self):
-        self.config = get_config('config.json')
+        self.config = get_config()
         self.DB_PATH = self.config["db_path"]
         self.BOT_ID = self.config["bot_id"]
         self.BOT_NAME = self.config["bot_name"]

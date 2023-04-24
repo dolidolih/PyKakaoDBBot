@@ -17,7 +17,6 @@ def py_exec_db():
     replier = Replier(request_data)
     @r.call_on_close
     def on_close():
-        print("close started")
         response(request_data["room"],
             request_data["msg"],
             request_data["sender"],

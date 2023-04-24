@@ -5,7 +5,7 @@ import base64
 
 class Replier:
     def __init__(self, request_data):
-        self.config = get_config('config.json')
+        self.config = get_config()
         self.ip = self.config["bot_ip"]
         self.port = self.config["bot_socket_port"]
         self.json = request_data["json"]
