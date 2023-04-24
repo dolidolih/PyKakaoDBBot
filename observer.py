@@ -1,15 +1,11 @@
 import os
 import sys
 import time
-from dbcon import KakaoDB
 import json
 import base64
 import os
-from observerhelper import ObserverHelper, get_config
-
-CONFIG_FILE = 'config.json'
-HOME_PATH = os.getenv('HOME')
-DB_PATH = f'{HOME_PATH}/.local/share/waydroid/data/data/com.kakao.talk/databases'
+from helper.ObserverHelper import ObserverHelper, get_config
+from helper.KakaoDB import KakaoDB
 
 class Watcher(object):
     running = True
@@ -19,7 +15,7 @@ class Watcher(object):
         self._cached_stamp = 0
         self.db = db
         self.config = config
-        self.watchfile = DB_PATH + '/KakaoTalk.db-wal'
+        self.watchfile = config["db_path"] + '/KakaoTalk.db-wal'
         self.helper = ObserverHelper(config)
 
     def look(self):
@@ -35,7 +31,7 @@ class Watcher(object):
 
 def main():
     db = KakaoDB()
-    config = get_config(CONFIG_FILE)
+    config = get_config()
     watcher = Watcher(config,db)
     watcher.watch()
 

@@ -1,18 +1,20 @@
-from kakaodecrypt import KakaoDecrypt
+from helper.KakaoDecrypt import KakaoDecrypt
+from helper.ObserverHelper import get_config
 import sqlite3
 import datetime
 import time
 import os
 import subprocess
 
-HOME_PATH = os.getenv('HOME')
-DB_PATH = f'{HOME_PATH}/.local/share/waydroid/data/data/com.kakao.talk/databases'
-
 class KakaoDB:
     def __init__(self):
-        self.con = sqlite3.connect(f"{DB_PATH}/KakaoTalk.db")
+        self.config = get_config()
+        self.DB_PATH = self.config["db_path"]
+        self.BOT_ID = self.config["bot_id"]
+        self.BOT_NAME = self.config["bot_name"]
+        self.con = sqlite3.connect(f"{self.DB_PATH}/KakaoTalk.db")
         self.cur = self.con.cursor()
-        self.cur.execute(f"ATTACH DATABASE '{DB_PATH}/KakaoTalk2.db' AS db2")
+        self.cur.execute(f"ATTACH DATABASE '{self.DB_PATH}/KakaoTalk2.db' AS db2")
 
     def get_column_info(self,table):
         try:
@@ -35,6 +37,15 @@ class KakaoDB:
             enc = row[1]
             dec_row_name = KakaoDecrypt.decrypt(enc, row_name)
             return dec_row_name
+
+    def get_user_info(self, chat_id, user_id):
+        self.cur.execute(f'SELECT name FROM db2.open_link WHERE id = (SELECT link_id FROM chat_rooms WHERE id = ?);',[chat_id])
+        room = self.cur.fetchall()[0][0]
+        if user_id == self.BOT_ID:
+            sender = self.BOT_NAME
+        else:
+            sender = self.get_name_of_user_id(user_id)
+        return (room, sender)
 
     def get_row_from_log_id(self,log_id):
         self.cur.execute(f"SELECT * FROM chat_logs WHERE id = ?",[log_id])
