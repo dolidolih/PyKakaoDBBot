@@ -62,8 +62,7 @@ scrcpy -s localhost:5555
     "bot_id" : YOUR_BOT_ID, // 봇 ID
     "db_path" : "/home/YOUR_LINUX_USERNAME/data/data/com.kakao.talk/databases", // 리눅스 username 반영
     "bot_ip" : "127.0.0.1", // 그대로 두세요
-    "bot_socket_port" : 3000, // 그대로 두세요
-    "commands" : ["!hi"] // 명령어를 리스트 형식으로 추가
+    "bot_socket_port" : 3000 // 그대로 두세요
 }
 ```
 ※ BOT_ID(봇 계정의 user_id)는 아래 스크립트를 이용하여 유추할 수 있습니다. (일반적으로 가장 짧은 데이터):
@@ -85,8 +84,15 @@ pip install pip -- upgrade
 pip install -r requirements.txt
 ```
 ### 1.7 /data 퍼미션 설정
+- 초기 퍼미션 설정
 ```shell
-sudo chmod -R 777 $HOME/data/data
+sudo chmod -R -c 777 ~/data/data/.
+```
+- cron job 설정(정기적 퍼미션 변경)
+```shell
+sudo crontab -e
+
+* * * * * /bin/chmod -R -c 777 /home/YOUR_USER_NAME/data/data/.
 ```
 ----
 ## 2. 사용 방법
