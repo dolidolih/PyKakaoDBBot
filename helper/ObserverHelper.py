@@ -26,9 +26,11 @@ class ObserverHelper:
         description = [desc[0] for desc in db.cur.description]
         res = db.cur.fetchall()
         res.reverse()
+
         if self.last_log_id == 0:
-            self.last_log_id == row[4][0]
+            self.last_log_id = res[0][0]
             return
+
         for row in res:
             if row[0] > self.last_log_id:
                 self.last_log_id = row[0]
