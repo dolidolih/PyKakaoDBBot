@@ -43,7 +43,6 @@ class ObserverHelper:
                     room = sender
                 post_data = self.make_post_data(dec_msg, room, sender, {description[i]:row[i] for i in range(len(row))})
                 requests.post("http://127.0.0.1:5000/db",data={"data":post_data})
-                print('sent')
 
 def get_config():
     with open('config.json','r') as fo:

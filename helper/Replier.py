@@ -21,7 +21,6 @@ class Replier:
             "room":base64.b64encode(room.encode()).decode(),
             "msgJson":base64.b64encode(json.dumps(msg_json).encode()).decode()
             }
-        print(res)
         clientSocket.send(json.dumps(res).encode("utf-8"))
         clientSocket.close()
 

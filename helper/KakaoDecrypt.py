@@ -117,7 +117,6 @@ class KakaoDecrypt:
         iv = b'\x0f\x08\x01\x00\x19\x47\x25\xdc\x15\xf5\x17\xe0\xe1\x15\x0c\x35'
 
         salt = KakaoDecrypt.genSalt(user_id, encType)
-        #print(salt)
         if salt in KakaoDecrypt.key_cache:
             key = KakaoDecrypt.key_cache[salt]
         else:
@@ -126,13 +125,11 @@ class KakaoDecrypt:
         encoder = AES.new(key, AES.MODE_CBC, iv)
 
         ciphertext = base64.b64decode(b64_ciphertext)
-        #print(ciphertext)
         if len(ciphertext) == 0:
             return b64_ciphertext
         padded = encoder.decrypt(ciphertext)
         try:
             plaintext = padded[:-padded[-1]]
-            #print(plaintext.decode('UTF-8'))
         except IndexError:
             raise ValueError('Unable to decrypt data', ciphertext)
         try:

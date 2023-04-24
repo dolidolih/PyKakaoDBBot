@@ -3,7 +3,7 @@ from flask import Flask,request,json
 import base64
 from chatbot.Response import response
 from helper.Replier import Replier
-from dbcon import KakaoDB
+from helper.KakaoDB import KakaoDB
 
 app = Flask(__name__)
 db = KakaoDB()
