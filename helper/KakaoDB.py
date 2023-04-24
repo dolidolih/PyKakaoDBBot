@@ -1,10 +1,8 @@
 from helper.KakaoDecrypt import KakaoDecrypt
 from helper.ObserverHelper import get_config
 import sqlite3
-import datetime
 import time
-import os
-import subprocess
+import sys
 
 class KakaoDB:
     def __init__(self):
@@ -12,7 +10,11 @@ class KakaoDB:
         self.DB_PATH = self.config["db_path"]
         self.BOT_ID = self.config["bot_id"]
         self.BOT_NAME = self.config["bot_name"]
-        self.con = sqlite3.connect(f"{self.DB_PATH}/KakaoTalk.db")
+        try:
+            self.con = sqlite3.connect(f"{self.DB_PATH}/KakaoTalk.db")
+        except:
+            print("You don't have a permission to access KakaoTalk Database.")
+            sys.exit()
         self.cur = self.con.cursor()
         self.cur.execute(f"ATTACH DATABASE '{self.DB_PATH}/KakaoTalk2.db' AS db2")
 
