@@ -3,8 +3,10 @@ from flask import Flask,request,json
 import base64
 from chatbot.Response import response
 from helper.Replier import Replier
+from helper.KakaoDB import KakaoDB
 
 app = Flask(__name__)
+db = KakaoDB()
 
 @app.route('/db',methods=['POST'])
 def py_exec_db():
@@ -20,7 +22,9 @@ def py_exec_db():
         response(request_data["room"],
             request_data["msg"],
             request_data["sender"],
-            replier,request_data["json"]
+            replier,
+            request_data["json"],
+            db
            )
     return r
 

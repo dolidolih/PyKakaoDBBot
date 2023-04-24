@@ -1,4 +1,3 @@
-def response(room, msg, sender, replier, msg_json):
-    print(msg_json)
+def response(room, msg, sender, replier, msg_json, db):
     if msg == "!hi":
         replier.reply("hello")
