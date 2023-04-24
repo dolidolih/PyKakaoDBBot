@@ -35,7 +35,7 @@ Docker의 공식 설치 가이드에 따라 설치하세요:
 https://docs.docker.com/engine/install/
 
 ### 1.3 Redroid 설치 및 실행
-- 
+- docker container 실행
 ```shell
 docker run -itd --privileged \
     -v ~/data:/data \
