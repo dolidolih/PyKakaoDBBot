@@ -54,15 +54,15 @@ scrcpy -s localhost:5555
 ```
 
 ### 1.4 Config 설정
-- config.json을 열어 config를 설정합니다.
+- config.json 생성하여 아래와 같이 설정합니다.
 ```javascript
 # config.json
 {
     "bot_name" : "YOUR_BOT_NAME", // 봇 이름
     "bot_id" : YOUR_BOT_ID, // 봇 ID
     "db_path" : "/home/YOUR_LINUX_USERNAME/data/data/com.kakao.talk/databases", // 리눅스 username 반영
-    "bot_ip" : "127.0.0.1",
-    "bot_socket_port" : 3000,
+    "bot_ip" : "127.0.0.1", // 그대로 두세요
+    "bot_socket_port" : 3000, // 그대로 두세요
     "commands" : ["!hi"] // 명령어를 리스트 형식으로 추가
 }
 ```
