@@ -1,7 +1,7 @@
 # PyKakaoDBBot
-Python Kakaotalk bot using redroid & Android notification based bot apps.
+Redroid 및 노티 기반 봇앱을 이용한 파이썬 DB 봇
 
-### Sequence Diagram
+### 흐름도
 ```mermaid
 sequenceDiagram
     box kakaotalk
@@ -104,6 +104,6 @@ venv/bin/python venv/bin/gunicorn -b 0.0.0.0:5000 -w 9 app:app &
 
 ### 2.2 봇 스크립트 수정
 - chatbot/Response.py 를 수정하여 봇 스크립트를 작성하고, replier.reply() 메소드를 통해 채팅창에 출력할 수 있습니다.
-- 다른 방으로 보내는 경우, replier.send_socket(self, is_success,type,data,room,msg_json) 을 이용할 수 있습니다.
+- 다른 방으로 보내는 경우, replier.send_socket(self,is_success,type,data,room,msg_json) 을 이용할 수 있습니다.
 
 ### End
