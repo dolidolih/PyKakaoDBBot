@@ -4,7 +4,7 @@ import sqlite3
 import time
 import sys
 
-class KakaoDB:
+class KakaoDB(KakaoDecrypt):
     def __init__(self):
         self.config = get_config()
         self.DB_PATH = self.config["db_path"]
@@ -37,7 +37,7 @@ class KakaoDB:
         for row in res:
             row_name = row[0]
             enc = row[1]
-            dec_row_name = KakaoDecrypt.decrypt(enc, row_name)
+            dec_row_name = self.decrypt(enc, row_name)
             return dec_row_name
 
     def get_user_info(self, chat_id, user_id):

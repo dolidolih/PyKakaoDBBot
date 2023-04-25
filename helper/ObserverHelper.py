@@ -1,5 +1,4 @@
 import json
-from helper.KakaoDecrypt import KakaoDecrypt
 import requests
 
 class ObserverHelper:
@@ -39,7 +38,7 @@ class ObserverHelper:
                 origin = v["origin"]
                 enc_msg = row[5]
                 user_id = row[4]
-                dec_msg = KakaoDecrypt.decrypt(enc,enc_msg,user_id)
+                dec_msg = db.decrypt(enc,enc_msg,user_id)
                 chat_id = row[3]
                 user_info = db.get_user_info(chat_id,user_id)
                 room = user_info[0]

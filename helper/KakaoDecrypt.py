@@ -8,12 +8,10 @@ import json
 #https://github.com/jiru/kakaodecrypt
 #removed unnecessary codes and added encrypt
 
-#update BOT_USER_ID
-with open('config.json', 'r') as fo:
-    BOT_USER_ID = json.loads(fo.read())["bot_id"]
-
 class KakaoDecrypt:
     key_cache = {}
+    with open('config.json', 'r') as fo:
+        BOT_USER_ID = json.loads(fo.read())["bot_id"]
 
     # Reimplementation of com.kakao.talk.dream.Projector.incept() from libdream.so
     @staticmethod
