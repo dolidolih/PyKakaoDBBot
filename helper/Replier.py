@@ -27,4 +27,4 @@ class Replier:
     def reply(self,msg,room=""):
         if room == "":
             room = self.room
-        self.send_socket(True,"normal",msg,self.room,self.json)
+        self.send_socket(True,"normal",str(msg),self.room,self.json)
