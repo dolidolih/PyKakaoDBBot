@@ -1,0 +1,7 @@
+{
+    "bot_name" : "봇 이름을 입력합니다",
+    "bot_id" : 봇의 user_id를 입력합니다,
+    "db_path" : "/home/리눅스 username을 입력합니다/data/data/com.kakao.talk/databases",
+    "bot_ip" : "127.0.0.1",
+    "bot_socket_port" : 3000
+}
