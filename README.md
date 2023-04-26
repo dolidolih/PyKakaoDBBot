@@ -109,10 +109,15 @@ venv/bin/python venv/bin/gunicorn -b 0.0.0.0:5000 -w 9 app:app &
 
 ## 3. Trouble shooting
 - /dev/binder가 없는 경우
+```shell
 https://github.com/remote-android/redroid-doc/tree/master/deploy 의 배포판 별 설치방법에 따라 binder, ashmem 을 설정합니다.
+```
 - sudo docker exec -it [container 이름] sh 로 파일시스템 접근은 되나 adb는 안되는 경우
+```shell
 docker 실행 시 가장 뒤에 androidboot.redroid_gpu_mode=guest를 추가합니다.
+```
 - 생성되었으나 일정 시간 후 container가 죽는 경우(실행 중인 container 확인 : sudo docker ps)
+```shell
 CPU 가상화가 가능한 환경인지 확인합니다.
-
+```
 ### End
