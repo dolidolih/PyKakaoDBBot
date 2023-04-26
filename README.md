@@ -106,4 +106,13 @@ venv/bin/python venv/bin/gunicorn -b 0.0.0.0:5000 -w 9 app:app &
 - chatbot/Response.py 를 수정하여 봇 스크립트를 작성하고, replier.reply() 메소드를 통해 채팅창에 출력할 수 있습니다.
 - 다른 방으로 보내는 경우, replier.send_socket(self,is_success,type,data,room,msg_json) 을 이용할 수 있습니다.
 
+
+## 3. Trouble shooting
+- /dev/binder가 없는 경우
+https://github.com/remote-android/redroid-doc/tree/master/deploy 의 배포판 별 설치방법에 따라 binder, ashmem 을 설정합니다.
+- sudo docker exec -it [container 이름] sh 로 파일시스템 접근은 되나 adb는 안되는 경우
+docker 실행 시 가장 뒤에 androidboot.redroid_gpu_mode=guest를 추가합니다.
+- 생성되었으나 일정 시간 후 container가 죽는 경우(실행 중인 container 확인 : sudo docker ps)
+CPU 가상화가 가능한 환경인지 확인합니다.
+
 ### End
