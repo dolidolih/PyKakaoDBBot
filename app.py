@@ -4,9 +4,11 @@ import base64
 from chatbot.Response import response
 from helper.Replier import Replier
 from helper.KakaoDB import KakaoDB
+from helper.SharedDict import get_shared_state
 
 app = Flask(__name__)
 db = KakaoDB()
+g = get_shared_state()
 
 @app.route('/db',methods=['POST'])
 def py_exec_db():
@@ -24,9 +26,11 @@ def py_exec_db():
             request_data["sender"],
             replier,
             request_data["json"],
-            db
+            db,
+            g
            )
     return r
 
 if __name__ == "__main__":
+    SharedState.register('state', SharedState._get_shared_state, NamespaceProxy)
     app.run(host='0.0.0.0', port=5000)
