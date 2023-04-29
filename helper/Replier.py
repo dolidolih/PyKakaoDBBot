@@ -5,14 +5,14 @@ import base64
 import time
 
 class Replier:
-    def __init__(self, request_data, queue, last_sent_time):
+    def __init__(self, request_data):
         self.config = get_config()
         self.ip = self.config["bot_ip"]
         self.port = self.config["bot_socket_port"]
         self.json = request_data["json"]
         self.room = request_data["room"]
-        self.queue = queue
-        self.last_sent_time = last_sent_time
+        self.queue = []
+        self.last_sent_time = time.time()
 
     def send_socket(self, is_success, type, data, room, msg_json):
         clientSocket = socket(AF_INET, SOCK_STREAM)
@@ -45,5 +45,5 @@ class Replier:
             self.queue.pop(0)
             self.last_sent_time = current_time
         if len(self.queue) > 0:
-            time.sleep(0.1)
+            time.sleep(0.02)
             self.send_message()
