@@ -42,12 +42,11 @@ function SocketHandler(socket) {
             break;
         if (line.startsWith("{")){
             let msg = line;
-            ins.close();
-            socket.close();
             replyResult(msg);
         }
     }
-
+    ins.close();
+    socket.close();
 }
 
 function base64Decode(input) {
