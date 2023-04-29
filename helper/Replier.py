@@ -30,14 +30,14 @@ class Replier:
     def reply(self, msg, room=""):
         if room == "":
             room = self.room
-        self.queue_message(True,"normal",str(msg),self.room,self.json)
+        self.__queue_message(True,"normal",str(msg),self.room,self.json)
     
-    def queue_message(self, is_success, type, data, room, msg_json):
+    def __queue_message(self, is_success, type, data, room, msg_json):
         self.queue.append((is_success, type, data, room, msg_json))
         if len(self.queue) == 1:
-            self.send_message()
+            self.__send_message()
     
-    def send_message(self):
+    def __send_message(self):
         next_message = self.queue[0]
         current_time = time.time()
         if current_time-self.last_sent_time >= 0.1:
@@ -46,4 +46,4 @@ class Replier:
             self.last_sent_time = current_time
         if len(self.queue) > 0:
             time.sleep(0.02)
-            self.send_message()
+            self.__send_message()
