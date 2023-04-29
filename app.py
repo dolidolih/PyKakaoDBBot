@@ -5,10 +5,13 @@ from chatbot.Response import response
 from helper.Replier import Replier
 from helper.KakaoDB import KakaoDB
 from helper.SharedDict import get_shared_state
+import time
 
 app = Flask(__name__)
 db = KakaoDB()
 g = get_shared_state()
+g["queue"] = []
+g["last_sent_time"] = time.time()
 
 @app.route('/db',methods=['POST'])
 def py_exec_db():
@@ -18,7 +21,7 @@ def py_exec_db():
         mimetype='text/plain; charset="utf-8"'
         )
     request_data = json.loads(request.form['data'])
-    replier = Replier(request_data)
+    replier = Replier(request_data,g["queue"],g["last_sent_time"])
     @r.call_on_close
     def on_close():
         response(request_data["room"],
