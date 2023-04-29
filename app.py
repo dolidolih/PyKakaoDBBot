@@ -21,7 +21,7 @@ def py_exec_db():
         mimetype='text/plain; charset="utf-8"'
         )
     request_data = json.loads(request.form['data'])
-    replier = Replier(request_data,g["queue"],g["last_sent_time"])
+    replier = Replier(request_data)
     @r.call_on_close
     def on_close():
         response(request_data["room"],
