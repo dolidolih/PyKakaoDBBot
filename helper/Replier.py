@@ -45,5 +45,5 @@ class Replier:
             self.queue.pop(0)
             self.last_sent_time = current_time
         if len(self.queue) > 0:
-            time.sleep(0.02)
+            time.sleep(0.1)
             self.__send_message()
