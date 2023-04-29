@@ -34,19 +34,20 @@ function onStartCompile() {
 }
 
 function SocketHandler(socket) {
-    ins = socket.getInputStream();
-    br = new java.io.BufferedReader(new java.io.InputStreamReader(ins));
-    line = "";
+    var ins = socket.getInputStream();
+    var br = new java.io.BufferedReader(new java.io.InputStreamReader(ins));
+    var line = "";
     while ((line = br.readLine()) != null) {
         if (line == "")
             break;
         if (line.startsWith("{")){
-            msg = line;
+            let msg = line;
+            ins.close();
+            socket.close();
+            replyResult(msg);
         }
     }
-    ins.close();
-    socket.close();
-    replyResult(msg);
+
 }
 
 function base64Decode(input) {
