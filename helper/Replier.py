@@ -42,7 +42,6 @@ class Replier:
         next_message = self.queue[0]
         current_time = time.time()
         if current_time-self.last_sent_time >= 0.1:
-            print(self.queue)
             self.send_socket(next_message[0],next_message[1],next_message[2],next_message[3],next_message[4])
             self.queue.pop(0)
             self.last_sent_time = current_time
