@@ -3,6 +3,7 @@ from helper.ObserverHelper import get_config
 import json
 import base64
 import time
+import threading
 
 class Replier:
     def __init__(self, request_data):
@@ -41,9 +42,10 @@ class Replier:
         next_message = self.queue[0]
         current_time = time.time()
         if current_time-self.last_sent_time >= 0.1:
+            print(self.queue)
             self.send_socket(next_message[0],next_message[1],next_message[2],next_message[3],next_message[4])
             self.queue.pop(0)
             self.last_sent_time = current_time
         if len(self.queue) > 0:
-            time.sleep(0.1)
-            self.__send_message()
+            timer = threading.Timer(0.1, self.__send_message)
+            timer.start()
