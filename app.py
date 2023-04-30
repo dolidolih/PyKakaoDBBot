@@ -5,7 +5,6 @@ from chatbot.Response import response
 from helper.Replier import Replier
 from helper.KakaoDB import KakaoDB
 from helper.SharedDict import get_shared_state
-import time
 
 app = Flask(__name__)
 db = KakaoDB()
