@@ -10,8 +10,6 @@ import time
 app = Flask(__name__)
 db = KakaoDB()
 g = get_shared_state()
-g["queue"] = []
-g["last_sent_time"] = time.time()
 
 @app.route('/db',methods=['POST'])
 def py_exec_db():
