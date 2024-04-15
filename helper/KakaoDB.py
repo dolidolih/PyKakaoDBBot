@@ -41,15 +41,16 @@ class KakaoDB(KakaoDecrypt):
             return dec_row_name
 
     def get_user_info(self, chat_id, user_id):
-        self.cur.execute(f'SELECT name FROM db2.open_link WHERE id = (SELECT link_id FROM chat_rooms WHERE id = ?);',[chat_id])
         if user_id == self.BOT_ID:
             sender = self.BOT_NAME
         else:
             sender = self.get_name_of_user_id(user_id)
-        try:
-            room = self.cur.fetchall()[0][0]
-        except:
+        self.cur.execute(f'SELECT name FROM db2.open_link WHERE id = (SELECT link_id FROM chat_rooms WHERE id = ?);',[chat_id])
+        res = self.cur.fetchall()
+        if res == []:
             room = sender
+        else:
+            room = res[0][0]
         return (room, sender)
 
     def get_row_from_log_id(self,log_id):

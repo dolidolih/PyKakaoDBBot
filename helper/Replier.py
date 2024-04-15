@@ -28,10 +28,10 @@ class Replier:
         clientSocket.send(json.dumps(res).encode("utf-8"))
         clientSocket.close()
 
-    def reply(self, msg, room=""):
-        if room == "":
+    def reply(self, msg, room=None):
+        if room == None:
             room = self.room
-        self.__queue_message(True,"normal",str(msg),self.room,self.json)
+        self.__queue_message(True,"normal",str(msg),room,self.json)
     
     def __queue_message(self, is_success, type, data, room, msg_json):
         self.queue.append((is_success, type, data, room, msg_json))

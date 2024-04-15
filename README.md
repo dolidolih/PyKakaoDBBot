@@ -69,12 +69,14 @@ scrcpy -s localhost:5555
 https://github.com/jiru/kakaodecrypt/blob/master/guess_user_id.py
 
 ### 1.5 Bot App Script 복사
-- 안드로이드 sdcard에 'response.js'를 복사합니다.
+- 봇 앱에서 봇스크립트를 하나 생성한 후, 안드로이드 sdcard에 'response.js'를 복사합니다.(YOUR_BOT에 봇 이름을 넣어주세요)
 ```shell
 sudo cp response.js $HOME/data/media/0/msgbot/Bots/YOUR_BOT/YOUR_BOT.js
 sudo ls -al $HOME/data/media/0/msgbot/Bots/YOUR_BOT
 sudo chown BOTAPPUSER:BOTAPPUSER $HOME/data/media/0/msgbot/Bots/YOUR_BOT/YOUR_BOT.js
 ```
+
+- 혹은 response.js 파일의 내용을 복사하여 봇 앱에 직접 붙여넣어도 됩니다.
 
 ### 1.6 파이썬 Virtual env 설정 및 기본 패키지 설치
 ```shell
@@ -101,6 +103,17 @@ sudo crontab -e
 venv/bin/python observer.py &
 venv/bin/python venv/bin/gunicorn -b 0.0.0.0:5000 -w 9 app:app &
 ```
+
+- Systemctl을 통한 서비스를 등록하고자 하는 경우, 2개의 .service를 열어 YOUR_PYKAKAODBBOT_HOME을 pykakaodbbot의 디렉토리로 바꿔줍니다.
+- 이후 /etc/systemd/system/ 에 2개의 .service 파일을 복사하고,
+```shell
+sudo systemctl daemon-reload
+sudo systemctl enable --now dbobserver
+sudo systemctl enable --now chatbot
+```
+
+- 서비스 시작 종료는 sudo systemctl start/stop/restart chatbot 등으로 수행하고, 로그는 sudo journalctl -fu chatbot 등으로 확인합니다.
+
 
 ### 2.2 봇 스크립트 수정
 - chatbot/Response.py 를 수정하여 봇 스크립트를 작성하고, replier.reply() 메소드를 통해 채팅창에 출력할 수 있습니다.

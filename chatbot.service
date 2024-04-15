@@ -1,0 +1,12 @@
+[Unit]
+Description=chatbot www service
+
+[Service]
+User=dolidoli
+WorkingDirectory=YOUR_PYKAKAODBBOT_HOME
+ExecStart=/YOUR_PYKAKAODBBOT_HOME/venv/bin/gunicorn -b 0.0.0.0:5000 -w 9 app:app -t 100
+Restart=on-failure
+RestartSec=1s
+
+[Install]
+WantedBy=multi-user.target
