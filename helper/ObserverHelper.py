@@ -1,14 +1,15 @@
 import json
 import requests
+from helper.KakaoDB import KakaoDB
 
 class ObserverHelper:
-    def __init__(self,config):
+    def __init__(self):
         self.last_log_id = 0
         self.config = get_config()
         self.BOT_ID = self.config["bot_id"]
         self.BOT_NAME = self.config["bot_name"]
 
-    def make_post_data(self, dec_msg, room, sender, js):
+    def make_post_data(self, dec_msg: str, room: str, sender: str, js: dict) -> str:
         data = {"msg" : dec_msg,
                 "room" : room,
                 "sender" : sender,
@@ -16,7 +17,7 @@ class ObserverHelper:
                 }
         return json.dumps(data)
     
-    def check_change(self, db):
+    def check_change(self, db: KakaoDB) -> None:
         if self.last_log_id == 0:
             limit = 1
         else:
@@ -51,7 +52,7 @@ class ObserverHelper:
                 except:
                     print("Flask server is not running.")
 
-def get_config():
+def get_config() -> dict:
     with open('config.json','r') as fo:
         config = json.loads(fo.read())
     return config

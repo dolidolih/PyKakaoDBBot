@@ -6,7 +6,7 @@ import time
 import threading
 
 class Replier:
-    def __init__(self, request_data):
+    def __init__(self, request_data: dict):
         self.config = get_config()
         self.ip = self.config["bot_ip"]
         self.port = self.config["bot_socket_port"]
@@ -15,7 +15,7 @@ class Replier:
         self.queue = []
         self.last_sent_time = time.time()
 
-    def send_socket(self, is_success, type, data, room, msg_json):
+    def send_socket(self, is_success: bool, type: str, data: str, room: str, msg_json: dict) -> None:
         clientSocket = socket(AF_INET, SOCK_STREAM)
         clientSocket.connect((self.ip,self.port))
 
@@ -28,17 +28,17 @@ class Replier:
         clientSocket.send(json.dumps(res).encode("utf-8"))
         clientSocket.close()
 
-    def reply(self, msg, room=None):
+    def reply(self, msg: str, room: str=None) -> None:
         if room == None:
             room = self.room
         self.__queue_message(True,"normal",str(msg),room,self.json)
     
-    def __queue_message(self, is_success, type, data, room, msg_json):
+    def __queue_message(self, is_success: bool, type: str, data: str, room: str, msg_json: dict) -> None:
         self.queue.append((is_success, type, data, room, msg_json))
         if len(self.queue) == 1:
             self.__send_message()
     
-    def __send_message(self):
+    def __send_message(self) -> None:
         next_message = self.queue[0]
         current_time = time.time()
         if current_time-self.last_sent_time >= 0.1:
