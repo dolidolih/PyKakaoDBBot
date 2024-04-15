@@ -104,6 +104,17 @@ venv/bin/python observer.py &
 venv/bin/python venv/bin/gunicorn -b 0.0.0.0:5000 -w 9 app:app &
 ```
 
+- Systemctl을 통한 서비스를 등록하고자 하는 경우, 2개의 .service를 열어 YOUR_PYKAKAODBBOT_HOME을 pykakaodbbot의 디렉토리로 바꿔줍니다.
+- 이후 /etc/systemd/system/ 에 2개의 .service 파일을 복사하고,
+```shell
+sudo systemctl daemon-reload
+sudo systemctl enable --now dbobserver
+sudo systemctl enable --now chatbot
+```
+
+- 서비스 시작 종료는 sudo systemctl start/stop/restart chatbot 등으로 수행하고, 로그는 sudo journalctl -fu chatbot 등으로 확인합니다.
+
+
 ### 2.2 봇 스크립트 수정
 - chatbot/Response.py 를 수정하여 봇 스크립트를 작성하고, replier.reply() 메소드를 통해 채팅창에 출력할 수 있습니다.
 - 다른 방으로 보내는 경우, replier.send_socket(self,is_success,type,data,room,msg_json) 을 이용할 수 있습니다.
