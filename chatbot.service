@@ -2,7 +2,7 @@
 Description=chatbot www service
 
 [Service]
-User=dolidoli
+User=YOUR_USERNAME
 WorkingDirectory=YOUR_PYKAKAODBBOT_HOME
 ExecStart=/YOUR_PYKAKAODBBOT_HOME/venv/bin/gunicorn -b 0.0.0.0:5000 -w 9 app:app -t 100
 Restart=on-failure
