@@ -2,7 +2,7 @@
 Description=DB Observer for chatbot
 
 [Service]
-User=dolidoli
+User=YOUR_USERNAME
 WorkingDirectory=YOUR_PYKAKAODBBOT_HOME
 ExecStart=/YOUR_PYKAKAODBBOT_HOME/venv/bin/python /YOUR_PYKAKAODBBOT_HOME/dbobserver.py
 Restart=on-failure
