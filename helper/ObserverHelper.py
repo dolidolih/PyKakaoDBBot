@@ -18,17 +18,13 @@ class ObserverHelper:
     
     def check_change(self, db):
         if self.last_log_id == 0:
-            limit = 1
-        else:
-            limit = 5
-        db.cur.execute(f'select * from chat_logs order by id desc limit ?',[limit])
+            db.cur.execute(f'select _id from chat_logs order by _id desc limit 1')
+            self.last_log_id = db.cur.fetchall()[0][0]
+            return
+        db.cur.execute(f'select * from chat_logs where _id > ? order by _id desc',[self.last_log_id])
         description = [desc[0] for desc in db.cur.description]
         res = db.cur.fetchall()
         res.reverse()
-
-        if self.last_log_id == 0:
-            self.last_log_id = res[0][0]
-            return
 
         for row in res:
             if row[0] > self.last_log_id:
