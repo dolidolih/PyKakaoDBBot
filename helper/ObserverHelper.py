@@ -21,10 +21,9 @@ class ObserverHelper:
             db.cur.execute(f'select _id from chat_logs order by _id desc limit 1')
             self.last_log_id = db.cur.fetchall()[0][0]
             return
-        db.cur.execute(f'select * from chat_logs where _id > ? order by _id desc',[self.last_log_id])
+        db.cur.execute(f'select * from chat_logs where _id > ? order by _id asc',[self.last_log_id])
         description = [desc[0] for desc in db.cur.description]
         res = db.cur.fetchall()
-        res.reverse()
 
         for row in res:
             if row[0] > self.last_log_id:
