@@ -18,7 +18,7 @@ class KakaoDB(KakaoDecrypt):
         self.cur = self.con.cursor()
         self.cur.execute(f"ATTACH DATABASE '{self.DB_PATH}/KakaoTalk2.db' AS db2")
 
-    def get_column_info(self,table):
+    def get_column_info(self,table: str) -> list[any]:
         try:
             self.cur.execute(f'SELECT * FROM ? LIMIT 1',[table])
             cols = [description[0] for description in self.cur.description]
@@ -26,12 +26,12 @@ class KakaoDB(KakaoDecrypt):
         except:
             return []
 
-    def get_table_info(self):
+    def get_table_info(self) -> list[any]:
         self.cur.execute(f"SELECT name FROM sqlite_schema WHERE type='table';")
         tables = [table[0] for table in self.cur.fetchall()]
         return tables
 
-    def get_name_of_user_id(self,user_id):
+    def get_name_of_user_id(self,user_id: int) -> str:
         self.cur.execute(f"SELECT name,enc FROM db2.friends WHERE id=?",[user_id])
         res = self.cur.fetchall()
         for row in res:
@@ -40,7 +40,7 @@ class KakaoDB(KakaoDecrypt):
             dec_row_name = self.decrypt(enc, row_name)
             return dec_row_name
 
-    def get_user_info(self, chat_id, user_id):
+    def get_user_info(self, chat_id: int, user_id: int) -> tuple[str, str]:
         if user_id == self.BOT_ID:
             sender = self.BOT_NAME
         else:
@@ -53,12 +53,12 @@ class KakaoDB(KakaoDecrypt):
             room = res[0][0]
         return (room, sender)
 
-    def get_row_from_log_id(self,log_id):
+    def get_row_from_log_id(self,log_id: int) -> list[any]:
         self.cur.execute(f"SELECT * FROM chat_logs WHERE id = ?",[log_id])
         res = self.cur.fetchall()
         return res[0]
 
-    def clean_chat_logs(self,days):
+    def clean_chat_logs(self,days: str) -> str:
         try:
             days = float(days)
             now = time.time()
@@ -71,7 +71,7 @@ class KakaoDB(KakaoDecrypt):
             res = f'요청이 잘못되었거나 에러가 발생하였습니다.'
         return res
 
-    def log_to_dict(self,log_id):
+    def log_to_dict(self,log_id: int) -> dict[any]:
         sql = f'select * from chat_logs where id = ?'
         self.cur.execute(sql,[log_id])
         descriptions = [d[0] for d in self.cur.description]

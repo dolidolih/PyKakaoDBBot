@@ -11,25 +11,25 @@ class Watcher(object):
     running = True
     refresh_delay_secs = 0.01
 
-    def __init__(self, config,db):
+    def __init__(self, config: dict[any],db: KakaoDB):
         self._cached_stamp = 0
         self.db = db
         self.config = config
         self.watchfile = config["db_path"] + '/KakaoTalk.db-wal'
         self.helper = ObserverHelper(config)
 
-    def look(self):
+    def look(self) -> None:
         stamp = os.stat(self.watchfile).st_mtime
         if stamp != self._cached_stamp:
             self._cached_stamp = stamp
             self.helper.check_change(self.db)
 
-    def watch(self):
+    def watch(self) -> None:
         while self.running:
             time.sleep(self.refresh_delay_secs)
             self.look()
 
-def main():
+def main() -> None:
     db = KakaoDB()
     config = get_config()
     watcher = Watcher(config,db)
