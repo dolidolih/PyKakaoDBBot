@@ -63,28 +63,6 @@ function replyResult(data){
     data.room = base64Decode(data.room);
     data.msgJson = JSON.parse(base64Decode(data.msgJson));
     if (data.isSuccess) {
-            Api.replyRoom(data.room,data.data);
-    }
-}
-
-// response fix by dark tornado
-function onNotificationPosted(sbn, sm) {
-    var packageName = sbn.getPackageName();
-    if (!packageName.startsWith("com.kakao.tal")) return;
-    var actions = sbn.getNotification().actions;
-    if (actions == null) return;
-    var userId = sbn.getUser().hashCode();
-    for (var n = 0; n < actions.length; n++) {
-        var action = actions[n];
-        if (action.getRemoteInputs() == null) continue;
-        var bundle = sbn.getNotification().extras;
-        var msg = bundle.get("android.text").toString();
-        var sender = bundle.getString("android.title");
-        var room = bundle.getString("android.subText");
-        if (room == null) room = bundle.getString("android.summaryText");
-        var isGroupChat = room != null;
-        if (room == null) room = sender;
-        var replier = new com.xfl.msgbot.script.api.legacy.SessionCacheReplier(packageName, action, room, false, "");
-        com.xfl.msgbot.application.service.NotificationListener.Companion.setSession(packageName, room, action);
+            Api.replyToID(data.room,data.data);
     }
 }
