@@ -11,7 +11,7 @@ class Replier:
         self.ip = self.config["bot_ip"]
         self.port = self.config["bot_socket_port"]
         self.json = request_data["json"]
-        self.room = str(self.json["chatId"])
+        self.room = str(self.json["chat_id"])
         self.queue = []
         self.last_sent_time = time.time()
 
