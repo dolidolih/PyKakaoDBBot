@@ -31,6 +31,19 @@ class KakaoDB(KakaoDecrypt):
         tables = [table[0] for table in self.cur.fetchall()]
         return tables
 
+
+    def get_name_of_user_id(self,user_id):
+        if self.check_new_db():
+            self.cur.execute(f"SELECT nickname,enc FROM db2.open_chat_member WHERE user_id=?",[user_id])
+        else:
+            self.cur.execute(f"SELECT name,enc FROM db2.friends WHERE id=?",[user_id])
+        res = self.cur.fetchall()
+        for row in res:
+            row_name = row[0]
+            enc = row[1]
+            dec_row_name = self.decrypt(enc, row_name)
+            return dec_row_name
+            
     def get_name_of_user_id(self,user_id):
         self.cur.execute(f"SELECT name,enc FROM db2.friends WHERE id=?",[user_id])
         res = self.cur.fetchall()
@@ -77,3 +90,8 @@ class KakaoDB(KakaoDecrypt):
         descriptions = [d[0] for d in self.cur.description]
         rows = self.cur.fetchall()[0]
         return {descriptions[i] : rows[i] for i in range(len(descriptions))}
+
+    def check_new_db(self):
+        sql = "SELECT name FROM db2.sqlite_master WHERE type='table' AND name='open_chat_member'"
+        self.cur.execute(sql)
+        return self.cur.fetchone() is not None
