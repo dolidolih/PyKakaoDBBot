@@ -44,15 +44,6 @@ class KakaoDB(KakaoDecrypt):
             dec_row_name = self.decrypt(enc, row_name)
             return dec_row_name
             
-    def get_name_of_user_id(self,user_id):
-        self.cur.execute(f"SELECT name,enc FROM db2.friends WHERE id=?",[user_id])
-        res = self.cur.fetchall()
-        for row in res:
-            row_name = row[0]
-            enc = row[1]
-            dec_row_name = self.decrypt(enc, row_name)
-            return dec_row_name
-
     def get_user_info(self, chat_id, user_id):
         if user_id == self.BOT_ID:
             sender = self.BOT_NAME
