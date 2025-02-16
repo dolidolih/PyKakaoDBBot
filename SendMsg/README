@@ -1,6 +1,6 @@
 Original SendMsg : https://github.com/ye-seola/gok-db/blob/main/JAVA_SENDMSG/SendMsg.java
 
 Run below command on host linux environment:
-    ```shell
+    
     adb shell "su root sh -c 'CLASSPATH=/data/local/tmp/SendMsg.dex app_process / SendMsg'"
-    ```
+    
