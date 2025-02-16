@@ -16,3 +16,5 @@ Tips,
    - java to class : javac SendMsg.java -cp android-30.jar
    - class to dex : BUILD_TOOLS_DIRECTORY/d8 *.class
    - rename(optional) : mv classes.dex SendMsg.dex
+5) Kill messangerbot/starlight's socket listener before running SendMsg since it is using the same port number.
+6) To kill SendMsg process, run ps aux | grep SendMsg, and get the PID.
