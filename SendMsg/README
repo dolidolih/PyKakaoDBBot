@@ -1,6 +1,18 @@
 Original SendMsg : https://github.com/ye-seola/gok-db/blob/main/JAVA_SENDMSG/SendMsg.java
 
-Run below command on host linux environment:
+1. Push SendMsg.dex into /data/local/tmp:
+    adb push SendMsg.dex /data/local/tmp/.
     
+2. Run below command on host linux environment: 
     adb shell "su root sh -c 'CLASSPATH=/data/local/tmp/SendMsg.dex app_process / SendMsg'"
     
+
+
+Tips,
+1) You don't have to push everytime. Once it has been copied, just run the second command.
+2) You can add the adb command in the dbobserver. Use python adb module or subprocess to run it inside python code.
+3) SendMsg is using android-30.jar from https://github.com/anggrayudi/android-hidden-api
+4) To compile SendMsg.java, download android-30.jar and android build-tools.
+   - java to class : javac SendMsg.java -cp android-30.jar
+   - class to dex : BUILD_TOOLS_DIRECTORY/d8 *.class
+   - rename(optional) : mv classes.dex SendMsg.dex
