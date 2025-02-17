@@ -4,6 +4,8 @@ import json
 import base64
 import time
 import threading
+from PIL import Image
+import subprocess
 
 class Replier:
     def __init__(self, request_data):
@@ -32,6 +34,51 @@ class Replier:
         if room == None:
             room = self.room
         self.__queue_message(True,"normal",str(msg),room,self.json)
+
+
+    def reply_image_from_file(self, room, filepath):
+        #install adb to send image
+        img = Image.open(filepath)
+        self.reply_image_from_image(room,img)
+
+    def reply_image_from_image(self, room, img):
+        #install adb to send image
+        room = str(room)
+        png_filename = str(time.time()) + ".png"
+        img.save(png_filename)
+        device_filepath = f"/sdcard/pic/{png_filename}"
+        try:
+            subprocess.run(['adb', 'push', png_filename, device_filepath], check=True, capture_output=True)
+            print(f"Image pushed to device: {device_filepath}")
+            subprocess.run(['rm', png_filename], check=True, capture_output=True)
+        except subprocess.CalledProcessError as e:
+            print(f"Error pushing file to device using subprocess ADB push:")
+            print(f"Stdout: {e.stdout.decode()}")
+            print(f"Stderr: {e.stderr.decode()}")
+            print("Make sure ADB is correctly configured and your device is connected and authorized.")
+            return
+        adb_command = [
+            'adb', 'shell', 'am', 'start',
+            '-a', 'android.intent.action.SENDTO',
+            '-t', 'image/png',
+            '--eu', 'android.intent.extra.STREAM', f'file://{device_filepath}',
+            '--el', 'key_id', room,
+            '--ei', 'key_type', '1',
+            '--ez', 'key_from_direct_share', 'true',
+            'com.kakao.talk'
+        ]
+
+        try:
+            result = subprocess.run(adb_command, check=True, capture_output=True)
+            print("ADB shell command executed successfully.")
+            print(f"Stdout: {result.stdout.decode()}")
+            print(f"Stderr: {result.stderr.decode()}") # Check for errors in stderr
+        except subprocess.CalledProcessError as e:
+            print(f"Error executing ADB shell command:")
+            print(f"Stdout: {e.stdout.decode()}")
+            print(f"Stderr: {e.stderr.decode()}")
+            print("Check the ADB command syntax and device connection.")
+            return
     
     def __queue_message(self, is_success, type, data, room, msg_json):
         self.queue.append((is_success, type, data, room, msg_json))
