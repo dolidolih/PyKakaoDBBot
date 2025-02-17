@@ -2,3 +2,4 @@ Flask
 pycryptodome
 requests
 gunicorn
+pillow
