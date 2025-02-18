@@ -84,20 +84,14 @@ sudo crontab -e
 
 * * * * * /bin/chmod -R -c 777 /home/YOUR_USER_NAME/data/data/.
 ```
-----
-## 2. 사용 방법
-### 2.1 SendMsg 실행
-- adb를 이용하여 SendMsg.dex를 안드로이드로 옮깁니다.(최초 1회만 실행)
+### 1.7 SendMsg 설치
+- adb를 이용하여 SendMsg.dex를 안드로이드로 옮깁니다.
 ```shell
 adb push SendMsg.dex /data/local/tmp/.
 ```
-
-- adb를 이용하여 SendMsg를 실행합니다.
-```shell
-adb shell "su root sh -c 'CLASSPATH=/data/local/tmp/SendMsg.dex app_process / SendMsg'"
-```
-
-### 2.2 Python script 실행
+----
+## 2. 사용 방법
+### 2.1 Python script 실행
 ```shell
 venv/bin/python observer.py &
 venv/bin/python venv/bin/gunicorn -b 0.0.0.0:5000 -w 9 app:app &
@@ -114,7 +108,7 @@ sudo systemctl enable --now chatbot
 - 서비스 시작 종료는 sudo systemctl start/stop/restart chatbot 등으로 수행하고, 로그는 sudo journalctl -fu chatbot 등으로 확인합니다.
 
 
-### 2.3 봇 스크립트 수정
+### 2.2 봇 스크립트 수정
 - chatbot/Response.py 를 수정하여 봇 스크립트를 작성하고, replier.reply() 메소드를 통해 채팅창에 출력할 수 있습니다.
 - 다른 방으로 보내는 경우, replier.send_socket(self,is_success,type,data,room,msg_json) 을 이용할 수 있습니다.
 
