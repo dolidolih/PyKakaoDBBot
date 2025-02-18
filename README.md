@@ -8,8 +8,7 @@ sequenceDiagram
     participant Kakaotalk
     end
     box redroid(android)
-    participant Notification
-    participant BotApp
+    participant SendMsg
     participant DB
     end
     box PyKakaoDBBot(linux)
@@ -18,9 +17,8 @@ sequenceDiagram
     end
     DB->>DBObserver: detect changes
     DBObserver->>Flask: send commands
-    Flask->>BotApp:send result via socket
-    BotApp->>Notification:send reply data
-    Notification->>Kakaotalk:reply
+    Flask->>SendMsg:send result via socket
+    SendMsg->>Kakaotalk:reply
 ```
 
 ## 1. Installation
@@ -68,24 +66,14 @@ scrcpy -s localhost:5555
 ※ BOT_ID(봇 계정의 user_id)는 아래 스크립트를 이용하여 유추할 수 있습니다. (일반적으로 가장 짧은 데이터):
 https://github.com/jiru/kakaodecrypt/blob/master/guess_user_id.py
 
-### 1.5 Bot App Script 복사
-- 봇 앱에서 봇스크립트를 하나 생성한 후, 안드로이드 sdcard에 'response.js'를 복사합니다.(YOUR_BOT에 봇 이름을 넣어주세요)
-```shell
-sudo cp response.js $HOME/data/media/0/msgbot/Bots/YOUR_BOT/YOUR_BOT.js
-sudo ls -al $HOME/data/media/0/msgbot/Bots/YOUR_BOT
-sudo chown BOTAPPUSER:BOTAPPUSER $HOME/data/media/0/msgbot/Bots/YOUR_BOT/YOUR_BOT.js
-```
-
-- 혹은 response.js 파일의 내용을 복사하여 봇 앱에 직접 붙여넣어도 됩니다.
-
-### 1.6 파이썬 Virtual env 설정 및 기본 패키지 설치
+### 1.5 파이썬 Virtual env 설정 및 기본 패키지 설치
 ```shell
 python3 -m venv venv
 source venv/bin/activate
 pip install pip -- upgrade
 pip install -r requirements.txt
 ```
-### 1.7 /data 퍼미션 설정
+### 1.6 /data 퍼미션 설정
 - 초기 퍼미션 설정
 ```shell
 sudo chmod -R -c 777 ~/data/data/.
@@ -98,7 +86,18 @@ sudo crontab -e
 ```
 ----
 ## 2. 사용 방법
-### 2.1 Python script 실행
+### 2.1 SendMsg 실행
+- adb를 이용하여 SendMsg.dex를 안드로이드로 옮깁니다.(최초 1회만 실행)
+```shell
+adb push SendMsg.dex /data/local/tmp/.
+```
+
+- adb를 이용하여 SendMsg를 실행합니다.
+```shell
+adb shell "su root sh -c 'CLASSPATH=/data/local/tmp/SendMsg.dex app_process / SendMsg'"
+```
+
+### 2.2 Python script 실행
 ```shell
 venv/bin/python observer.py &
 venv/bin/python venv/bin/gunicorn -b 0.0.0.0:5000 -w 9 app:app &
@@ -115,7 +114,7 @@ sudo systemctl enable --now chatbot
 - 서비스 시작 종료는 sudo systemctl start/stop/restart chatbot 등으로 수행하고, 로그는 sudo journalctl -fu chatbot 등으로 확인합니다.
 
 
-### 2.2 봇 스크립트 수정
+### 2.3 봇 스크립트 수정
 - chatbot/Response.py 를 수정하여 봇 스크립트를 작성하고, replier.reply() 메소드를 통해 채팅창에 출력할 수 있습니다.
 - 다른 방으로 보내는 경우, replier.send_socket(self,is_success,type,data,room,msg_json) 을 이용할 수 있습니다.
 
