@@ -6,6 +6,7 @@ import base64
 import os
 from helper.ObserverHelper import ObserverHelper, get_config
 from helper.KakaoDB import KakaoDB
+import subprocess
 
 class Watcher(object):
     running = True
@@ -32,6 +33,11 @@ class Watcher(object):
 def main():
     db = KakaoDB()
     config = get_config()
+    subprocess.Popen(["adb","shell","su root sh -c 'CLASSPATH=/data/local/tmp/SendMsg.dex app_process / SendMsg'"],
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True)
     watcher = Watcher(config,db)
     watcher.watch()
 
