@@ -5,7 +5,6 @@ import base64
 import time
 import threading
 from PIL import Image
-import subprocess
 import io
 
 class Replier:
@@ -38,7 +37,6 @@ class Replier:
 
 
     def reply_image_from_file(self, room, filepath):
-        #install adb to send image
         img = Image.open(filepath)
         self.reply_image_from_image(room,img)
 
