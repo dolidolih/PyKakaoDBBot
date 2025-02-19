@@ -52,6 +52,7 @@ sudo systemctl status chatbot
 sudo systemctl status dbobserver
 ```
 코드 수정후에는 chatbot을 restart 해주면 새로운 코드가 적용됩니다. (sudo systemctl restart chatbot)
+모두 완료되었다면 아래 단계들은 skip해도 됩니다.
 
 ### 1.2 Docker 설치
 Docker의 공식 설치 가이드에 따라 설치하세요:
