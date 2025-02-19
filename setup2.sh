@@ -32,7 +32,7 @@ echo "$CONFIG_JSON" > config.json
 # 3. Install packages
 echo "Installing python3-venv, adb package."
 sudo apt-get update
-sudo apt-get install python3-venv adb -y
+sudo apt-get install python3-venv python3-pip adb -y
 
 # 4. Install requirements
 echo "Installing requirements."
