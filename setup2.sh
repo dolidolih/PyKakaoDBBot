@@ -2,9 +2,21 @@
 
 # 1. Guess User ID
 echo "Guessing user_id of your bot."
+CURRENT_USERNAME=$(whoami)
 sudo chmod -R -c 777 ~/data/data/.
-BOT_ID_OUTPUT=$(python3 guess_user_id.py ~/data/data/com.kakao.talk/databases/KakaoTalk.db)
-BOT_ID=$(echo "$BOT_ID_OUTPUT" | grep -oP '^\s*\K\d+' | head -n 1)
+
+echo "Trying to get BOT_ID from KakaoTalk2.db..."
+SQLITE_BOT_ID_OUTPUT=$(sqlite3 '~/data/data/com.kakao.talk/databases/KakaoTalk2.db' 'SELECT user_id FROM open_profile LIMIT 1;' 2>/dev/null)
+SQLITE_BOT_ID=$(echo "$SQLITE_BOT_ID_OUTPUT" | grep -oP '^\s*\K\d+' | head -n 1)
+
+if [ -n "$SQLITE_BOT_ID" ]; then
+    BOT_ID="$SQLITE_BOT_ID"
+    echo "BOT_ID found from KakaoTalk2.db: $BOT_ID"
+else
+    echo "Failed to get BOT_ID from KakaoTalk2.db. Falling back to guess_user_id.py..."
+    BOT_ID_OUTPUT=$(python3 guess_user_id.py ~/data/data/com.kakao.talk/databases/KakaoTalk.db)
+    BOT_ID=$(echo "$BOT_ID_OUTPUT" | grep -oP '^\s*\K\d+' | head -n 1)
+fi
 
 if [ -z "$BOT_ID" ]; then
     echo "Error: Could not automatically guess BOT_ID. Please check guess_user_id.py output and set BOT_ID manually."
@@ -15,7 +27,6 @@ echo "Your bot's id seems $BOT_ID."
 
 # 2. Set Bot Config
 echo "Setting bot config..."
-CURRENT_USERNAME=$(whoami)
 CONFIG_JSON=$(cat <<EOF
 {
     "bot_name" : "BOT",
