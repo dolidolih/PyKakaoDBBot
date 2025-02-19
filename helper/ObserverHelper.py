@@ -1,5 +1,6 @@
 import json
 import requests
+import sys
 
 class ObserverHelper:
     def __init__(self,config):
@@ -45,6 +46,7 @@ class ObserverHelper:
                     requests.post("http://127.0.0.1:5000/db",data={"data":post_data})
                 except:
                     print("Flask server is not running.")
+                sys.stdout.flush()
 
 def get_config():
     with open('config.json','r') as fo:
