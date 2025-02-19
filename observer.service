@@ -4,7 +4,7 @@ Description=DB Observer for chatbot
 [Service]
 User=YOUR_USERNAME
 WorkingDirectory=YOUR_PYKAKAODBBOT_HOME
-ExecStart=/YOUR_PYKAKAODBBOT_HOME/venv/bin/python /YOUR_PYKAKAODBBOT_HOME/dbobserver.py
+ExecStart=/YOUR_PYKAKAODBBOT_HOME/venv/bin/python /YOUR_PYKAKAODBBOT_HOME/observer.py
 Restart=on-failure
 RestartSec=1s
 
