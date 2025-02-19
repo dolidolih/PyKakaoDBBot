@@ -23,10 +23,35 @@ sequenceDiagram
 
 ## 1. Installation
 ### 1.1 Clone repository
+- root가 아닌 user계정으로 진행합니다.
 ```shell
+cd ~
 git clone https://github.com/dolidolih/PyKakaoDBBot.git
 cd PyKakaoDBBot
 ```
+
+- Ubuntu 24.04.1 버전 x86_64 환경 자동화(다른 OS의 경우 1.2부터 진행해주세요.)
+```shell
+chmod +x *.sh
+./setup1.sh
+```
+
+setup1.sh 실행 후 리드로이드가 설치되었다는 메세지가 나타났다면,
+동일 네트워크의 다른 기기에서 adb, scrcpy를 통해 접속할 수 있습니다.
+
+Redroid 내부에 카카오톡 설치 후 로그인 한 후 오픈채팅방, 일반채팅방에 메세지를 5~10개 이상 적어주세요.
+
+이후 아래 명령을 실행해주면 완료됩니다.
+```shell
+./setup2.sh
+```
+
+두개의 서비스가 실행됩니다.
+```shell
+sudo systemctl status chatbot
+sudo systemctl status dbobserver
+```
+코드 수정후에는 chatbot을 restart 해주면 새로운 코드가 적용됩니다. (sudo systemctl restart chatbot)
 
 ### 1.2 Docker 설치
 Docker의 공식 설치 가이드에 따라 설치하세요:
@@ -35,7 +60,7 @@ https://docs.docker.com/engine/install/
 ### 1.3 Redroid 설치 및 실행
 - docker container 실행
 ```shell
-docker run -itd --privileged \
+sudo docker run -itd --privileged --name redroid\
     -v ~/data:/data \
     -p 5555:5555 \
     -p 3000:3000 \
