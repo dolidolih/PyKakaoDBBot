@@ -30,35 +30,38 @@ git clone https://github.com/dolidolih/PyKakaoDBBot.git
 cd PyKakaoDBBot
 ```
 
-- Ubuntu 24.04.1 버전 x86_64 환경 자동화(다른 OS의 경우 1.2부터 진행해주세요.)
+### 1.2 Ubuntu 24.04.1 버전 x86_64 환경 자동화(다른 OS의 경우 1.3부터 진행해주세요.)
+- 쉘 스크립트 실행
 ```shell
 chmod +x *.sh
 ./setup1.sh
 ```
 
+- 카카오톡 설치
 setup1.sh 실행 후 리드로이드가 설치되었다는 메세지가 나타났다면,
 동일 네트워크의 다른 기기에서 adb, scrcpy를 통해 접속할 수 있습니다.
 
 Redroid 내부에 카카오톡 설치 후 로그인 한 후 오픈채팅방, 일반채팅방에 메세지를 5~10개 이상 적어주세요.
 
-이후 아래 명령을 실행해주면 완료됩니다.
+- 두번째 쉘 스크립트 실행
 ```shell
 ./setup2.sh
 ```
 
-두개의 서비스가 실행됩니다.
+실행 완료 후 두개의 서비스가 실행됩니다.
 ```shell
 sudo systemctl status chatbot
 sudo systemctl status dbobserver
 ```
+
 코드 수정후에는 chatbot을 restart 해주면 새로운 코드가 적용됩니다. (sudo systemctl restart chatbot)
 모두 완료되었다면 아래 단계들은 skip해도 됩니다.
 
-### 1.2 Docker 설치
+### 1.3 Docker 설치
 Docker의 공식 설치 가이드에 따라 설치하세요:
 https://docs.docker.com/engine/install/
 
-### 1.3 Redroid 설치 및 실행
+### 1.4 Redroid 설치 및 실행
 - docker container 실행
 ```shell
 sudo docker run -itd --privileged --name redroid\
@@ -77,7 +80,7 @@ adb install YOUR_APP.apk
 scrcpy -s localhost:5555
 ```
 
-### 1.4 Config 설정
+### 1.5 Config 설정
 - config.json 생성하여 아래와 같이 설정합니다.
 ```javascript
 # config.json
@@ -92,14 +95,14 @@ scrcpy -s localhost:5555
 ※ BOT_ID(봇 계정의 user_id)는 아래 스크립트를 이용하여 유추할 수 있습니다. (일반적으로 가장 짧은 데이터):
 https://github.com/jiru/kakaodecrypt/blob/master/guess_user_id.py
 
-### 1.5 파이썬 Virtual env 설정 및 기본 패키지 설치
+### 1.6 파이썬 Virtual env 설정 및 기본 패키지 설치
 ```shell
 python3 -m venv venv
 source venv/bin/activate
 pip install pip -- upgrade
 pip install -r requirements.txt
 ```
-### 1.6 /data 퍼미션 설정
+### 1.7 /data 퍼미션 설정
 - 초기 퍼미션 설정
 ```shell
 sudo chmod -R -c 777 ~/data/data/.
@@ -110,7 +113,7 @@ sudo crontab -e
 
 * * * * * /bin/chmod -R -c 777 /home/YOUR_USER_NAME/data/data/.
 ```
-### 1.7 SendMsg 설치
+### 1.8 SendMsg 설치
 - adb를 이용하여 SendMsg.dex를 안드로이드로 옮깁니다.
 ```shell
 adb push SendMsg.dex /data/local/tmp/.
