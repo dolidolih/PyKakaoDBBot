@@ -6,6 +6,7 @@ from helper.Replier import Replier
 from helper.KakaoDB import KakaoDB
 from helper.SharedDict import get_shared_state
 import time
+import sys
 
 app = Flask(__name__)
 db = KakaoDB()
@@ -30,6 +31,7 @@ def py_exec_db():
             db,
             g
            )
+        sys.stdout.flush()
     return r
 
 if __name__ == "__main__":
