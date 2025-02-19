@@ -39,6 +39,7 @@ echo "Installing requirements."
 python3 -m venv venv
 venv/bin/python -m pip install pip --upgrade
 venv/bin/python -m pip install -r requirements.txt
+adb push SendMsg/SendMsg.dex /data/local/tmp/.
 
 # 5. Crontab job
 echo "Creating a crontab permission job"
