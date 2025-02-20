@@ -35,7 +35,7 @@ Description=DB Observer for chatbot
 [Service]
 User=$current_user
 WorkingDirectory=$current_dir
-ExecStart=$current_dir/venv/bin/python $current_dir/dbobserver.py
+ExecStart=$current_dir/venv/bin/python $current_dir/observer.py
 Restart=on-failure
 RestartSec=1s
 
