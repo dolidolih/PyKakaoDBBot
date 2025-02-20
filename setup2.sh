@@ -1,6 +1,11 @@
 #!/bin/bash
 
-# 1. Guess User ID
+# 1. Install packages
+echo "Installing python3-venv, adb, sqlite3 package."
+sudo apt-get update
+sudo apt-get install python3-venv python3-pip adb sqlite3 -y
+
+# 2. Guess User ID
 echo "Guessing user_id of your bot."
 CURRENT_USERNAME=$(whoami)
 sudo chmod -R -c 777 ~/data/data/.
@@ -25,7 +30,7 @@ fi
 
 echo "Your bot's id seems $BOT_ID."
 
-# 2. Set Bot Config
+# 3. Set Bot Config
 echo "Setting bot config..."
 CONFIG_JSON=$(cat <<EOF
 {
@@ -39,11 +44,6 @@ EOF
 )
 
 echo "$CONFIG_JSON" > config.json
-
-# 3. Install packages
-echo "Installing python3-venv, adb package."
-sudo apt-get update
-sudo apt-get install python3-venv python3-pip adb -y
 
 # 4. Install requirements
 echo "Installing requirements."
