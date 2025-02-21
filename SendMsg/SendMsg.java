@@ -176,7 +176,7 @@ class SendMsg {
     private static void SendPhoto(String room, String base64ImageDataString) throws Exception {
         byte[] decodedImage = Base64.decode(base64ImageDataString, Base64.DEFAULT);
         String timestamp = String.valueOf(System.currentTimeMillis());
-        File picDir = new File("/sdcard/pic");
+        File picDir = new File("/sdcard/Android/com.kakao.talk/files");
         if (!picDir.exists()) {
             picDir.mkdirs();
         }
@@ -200,30 +200,6 @@ class SendMsg {
         }
 
         Uri imageUri = Uri.fromFile(imageFile);
-
-        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        mediaScanIntent.setData(imageUri);
-        try {
-            activityManager.broadcastIntent(
-                null,
-                mediaScanIntent,
-                null,
-                null,
-                0,
-                null,
-                null,
-                null,
-                -1,
-                null,
-                false,
-                false,
-                -2
-            );
-            System.out.println("Media scanner broadcast intent sent for: " + imageUri.toString());
-        } catch (Exception e) {
-            System.err.println("Error broadcasting media scanner intent: " + e.toString());
-            throw e;
-        }
 
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SENDTO);
