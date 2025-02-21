@@ -57,7 +57,7 @@ class ObserverHelper:
         for process in psutil.process_iter():
             if "SendMsg" in process.cmdline():
                 return True
-            return False
+        return False
         
     def run_sendmsg(self):
         try:
