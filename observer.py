@@ -1,44 +1,23 @@
 import os
-import subprocess
-import threading
+import sys
 import time
+import json
+import base64
+import os
 from helper.ObserverHelper import ObserverHelper, get_config
 from helper.KakaoDB import KakaoDB
-
+import subprocess
 
 class Watcher(object):
     running = True
     refresh_delay_secs = 0.01
 
-    def __init__(self, config, db):
+    def __init__(self, config,db):
         self._cached_stamp = 0
         self.db = db
         self.config = config
-        self.watchfile = config["db_path"] + "/KakaoTalk.db-wal"
+        self.watchfile = config["db_path"] + '/KakaoTalk.db-wal'
         self.helper = ObserverHelper(config)
-
-        self.sendmsg_thread = threading.Thread(daemon=True, target=self.run_sendmsg)
-        self.sendmsg_thread.run()
-
-    def run_sendmsg(self):
-        res = None
-        
-        while True:
-            try:
-                res = subprocess.run(
-                    [
-                        "adb",
-                        "shell",
-                        "su root sh -c 'CLASSPATH=/data/local/tmp/SendMsg.dex app_process / SendMsg'",
-                    ],
-                    stdin=subprocess.PIPE,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.PIPE,
-                )
-            except Exception as e:
-                print("sendmsg error", e)
-            else:
-                print(f"sendmsg exited ({res.returncode})")
 
     def look(self):
         stamp = os.stat(self.watchfile).st_mtime
@@ -51,13 +30,11 @@ class Watcher(object):
             time.sleep(self.refresh_delay_secs)
             self.look()
 
-
 def main():
     db = KakaoDB()
     config = get_config()
-    watcher = Watcher(config, db)
+    watcher = Watcher(config,db)
     watcher.watch()
-
 
 if __name__ == "__main__":
     main()
