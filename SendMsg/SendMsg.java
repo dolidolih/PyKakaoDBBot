@@ -200,7 +200,7 @@ class SendMsg {
         }
 
         Uri imageUri = Uri.fromFile(imageFile);
-        /*
+        
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         mediaScanIntent.setData(imageUri);
         try {
@@ -224,7 +224,7 @@ class SendMsg {
             System.err.println("Error broadcasting media scanner intent: " + e.toString());
             throw e;
         }
-        */
+        
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SENDTO);
         intent.setType("image/png");
