@@ -11,7 +11,7 @@ CURRENT_USERNAME=$(whoami)
 sudo chmod -R -c 777 ~/data/data/.
 
 echo "Trying to get BOT_ID from KakaoTalk2.db..."
-SQLITE_BOT_ID_OUTPUT=$(sqlite3 ~/data/data/com.kakao.talk/databases/KakaoTalk2.db 'SELECT user_id FROM chat_logs WHERE v LIKE "%\"isMine\":true%" LIMIT 1;' 2>/dev/null)
+SQLITE_BOT_ID_OUTPUT=$(python3 guess_user_id.py)
 SQLITE_BOT_ID=$(echo "$SQLITE_BOT_ID_OUTPUT" | grep -oP '^\s*\K\d+' | head -n 1)
 
 if [ -z "$BOT_ID" ]; then
