@@ -60,10 +60,11 @@ class ObserverHelper:
         return False
         
     def run_sendmsg(self):
-        try:
-            subprocess.run(["adb","shell","su root sh -c 'CLASSPATH=/data/local/tmp/SendMsg.dex app_process / SendMsg'"],timeout=1)
-        except:
-            pass
+        subprocess.Popen(["adb","shell","su root sh -c 'CLASSPATH=/data/local/tmp/SendMsg.dex app_process / SendMsg' &"],
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True)
 
 def get_config():
     with open('config.json','r') as fo:
