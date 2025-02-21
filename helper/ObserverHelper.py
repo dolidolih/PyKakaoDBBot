@@ -3,6 +3,7 @@ import requests
 import sys
 import subprocess
 import psutil
+import time
 
 class ObserverHelper:
     def __init__(self,config):
@@ -65,6 +66,7 @@ class ObserverHelper:
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True)
+        time.sleep(1)
 
 def get_config():
     with open('config.json','r') as fo:
