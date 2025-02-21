@@ -3,3 +3,4 @@ pycryptodome
 requests
 gunicorn
 pillow
+psutil
