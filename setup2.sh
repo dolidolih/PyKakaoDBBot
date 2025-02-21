@@ -25,10 +25,10 @@ fi
 
 if [ -z "$BOT_ID" ]; then
     echo "Error: Could not automatically guess BOT_ID. Please check guess_user_id.py output and set BOT_ID manually."
-    exit 1
+    $BOT_ID="YOUR_BOT_ID"
+else
+    echo "Your bot's id seems $BOT_ID."
 fi
-
-echo "Your bot's id seems $BOT_ID."
 
 # 3. Set Bot Config
 echo "Setting bot config..."
