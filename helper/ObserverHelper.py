@@ -30,9 +30,6 @@ class ObserverHelper:
 
         for row in res:
             if row[0] > self.last_log_id:
-                if not self.check_sendmsg():
-                    self.run_sendmsg()
-                
                 self.last_log_id = row[0]
                 v = json.loads(row[13])
                 enc = v["enc"]
@@ -52,18 +49,6 @@ class ObserverHelper:
                 except:
                     print("Flask server is not running.")
                 sys.stdout.flush()
-    def check_sendmsg(self):
-        for process in psutil.process_iter():
-            if "SendMsg" in process.cmdline():
-                return True
-            return False
-        
-    def run_sendmsg(self):
-        subprocess.Popen(["adb","shell","su root sh -c 'CLASSPATH=/data/local/tmp/SendMsg.dex app_process / SendMsg'"],
-            stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True)
 
 def get_config():
     with open('config.json','r') as fo:
