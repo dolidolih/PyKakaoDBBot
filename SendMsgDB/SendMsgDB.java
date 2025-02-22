@@ -1,7 +1,7 @@
 //SendMsg : ye-seola/go-kdb
 //Kakaodecrypt : jiru/kakaodecrypt
 
-//WIP: Decrypt all values when sendding a db record to a web server.
+//WIP: Decrypt all values when sending a db record to a web server.
 //WIP: Socket based remote SQL Query
 
 import android.os.IBinder;
