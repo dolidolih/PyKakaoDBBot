@@ -1,0 +1,8 @@
+{
+    "bot_name" : "pykakao",
+    "bot_id" : 422174234,
+    "db_path" : "/data/data/com.kakao.talk/databases",
+    "bot_ip" : "172.17.0.1",
+    "bot_socket_port" : 3000,
+    "web_server_endpoint" : "http://172.17.0.1:5001/db"
+}
