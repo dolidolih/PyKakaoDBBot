@@ -1,6 +1,9 @@
 //SendMsg : ye-seola/go-kdb
 //Kakaodecrypt : jiru/kakaodecrypt
 
+//WIP: Decrypt all values when sendding a db record to a web server.
+//WIP: Socket based remote SQL Query
+
 import android.os.IBinder;
 import android.os.ServiceManager;
 import android.app.IActivityManager;
