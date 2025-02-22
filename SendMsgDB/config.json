@@ -1,6 +1,6 @@
 {
-    "bot_name" : "pykakao",
-    "bot_id" : 422174234,
+    "bot_name" : "YOUR_BOT_NAME",
+    "bot_id" : YOUR_BOT_ID,
     "db_path" : "/data/data/com.kakao.talk/databases",
     "bot_ip" : "172.17.0.1",
     "bot_socket_port" : 3000,
