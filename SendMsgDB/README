@@ -15,3 +15,5 @@ adb shell su root sh -c 'CLASSPATH=/data/local/tmp/SendMsgDB.dex app_process / S
 }
 
 - SendMsgDB listens with TCP socket port 3000. See Replier.py for json message needed.
+
+- You don't need to run dbobserver service if you use this.
