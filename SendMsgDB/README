@@ -1,11 +1,11 @@
 SendMsgDB
 
 - To run,
-'''shell
+```shell
 adb push SendMsgDB.dex /data/local/tmp
 sdb push config.json /data/local/tmp
-adb shell su root sh -c 'CLASSPATH=/data/local/tmp/SendMsgDB.dex app_process / SendMsgDB'
-'''
+adb shell "su root sh -c 'CLASSPATH=/data/local/tmp/SendMsgDB.dex /system/bin/app_process / SendMsgDB' &"
+```
 - SendMsgDB will send below json msg via x-www-form-urlencoded post request with key named "data" :
 {
 "msg" : decryptedMsg,
