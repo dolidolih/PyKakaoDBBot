@@ -1,4 +1,6 @@
 # PyKakaoDBBot
+### DEPRECATED : use Iris ( https://iris.qwer.party )
+
 Redroid 및 노티 기반 봇앱을 이용한 파이썬 DB 봇
 
 ### 흐름도
